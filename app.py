@@ -7,9 +7,6 @@ import argparse
 from pywebio import start_server
 
 import numpy as np
-
-app = Flask(__name__)
-
 def lr():
 	Nx=input("Please enter how many elements you want to add in X column ",type=NUMBER)
 	Ny=input("Please enter how many elements you want to add in Y column ",type=NUMBER)
@@ -162,6 +159,9 @@ def lr():
 	#put_text("ΣX = {}".format(sum1))
 	R_Square = np.square(upperSum*(1/len(X)))/(sigX * sigY)
 	put_text("R^2 is {}".format(R_Square))
+app = Flask(__name__)
+
+
 app.add_url_rule('/tool', 'webio_view', webio_view(lr),methods=['GET', 'POST', 'OPTIONS'])
 if __name__ == '__main__':
     app.run(debug=True)
