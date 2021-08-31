@@ -9,7 +9,7 @@ from pywebio.session import *
 
 import numpy as np
 def lr():
-	set_env(title='Linear Regression By Vivek patel!!', output_animation=False)
+	set_env(title='Linear Regression By Vivek patel!!')
 	Nx=input("Please enter how many elements you want to add in X column ",type=NUMBER)
 	Ny=input("Please enter how many elements you want to add in Y column ",type=NUMBER)
 	while(Nx!=Ny):
