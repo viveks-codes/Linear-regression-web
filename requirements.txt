@@ -12,7 +12,6 @@ dnspython==1.16.0
 Flask==2.0.1
 html5lib==1.1
 idna==3.2
-isc==2.0
 itsdangerous==2.0.1
 Jinja2==3.0.1
 lensfun==0.3.95
