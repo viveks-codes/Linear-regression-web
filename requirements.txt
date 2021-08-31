@@ -14,7 +14,6 @@ html5lib==1.1
 idna==3.2
 itsdangerous==2.0.1
 Jinja2==3.0.1
-libfdt==1.6.1
 louis==3.18.0
 Markdown==3.3.4
 MarkupSafe==2.0.1
