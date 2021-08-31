@@ -1,5 +1,4 @@
 appdirs==1.4.4
-Brlapi==0.8.2
 btrfsutil==5.13
 CacheControl==0.12.6
 cffi==1.14.6
