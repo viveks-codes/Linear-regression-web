@@ -9,7 +9,6 @@ from pywebio.session import *
 import numpy as np
 app = Flask(__name__)
 def lr():
-        set_env(title='linear regression!!', output_animation=False)
 	Nx=input("Please enter how many elements you want to add in X column ",type=NUMBER)
 	Ny=input("Please enter how many elements you want to add in Y column ",type=NUMBER)
 	while(Nx!=Ny):
