@@ -163,5 +163,7 @@ def lr():
 	R_Square = np.square(upperSum*(1/len(X)))/(sigX * sigY)
 	put_text("R^2 is {}".format(R_Square))
 app.add_url_rule('/tool', 'webio_view', webio_view(lr),methods=['GET', 'POST', 'OPTIONS'])
-app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
