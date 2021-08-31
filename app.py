@@ -168,5 +168,4 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--port", type=int, default=8080)
     args = parser.parse_args()
-
-
+    start_server(lr,port=args.port)
