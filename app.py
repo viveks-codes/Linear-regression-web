@@ -163,7 +163,7 @@ def lr():
 
 	while True:
 		
-		inp = input("enter year :- ",type=FLOAT) 
+		inp = input("enter X to predict Y :- ",type=FLOAT) 
 		Yhat = B0 + B1 * inp 
 		put_text(" {} (estimated)".format(Yhat)) 
 app = Flask(__name__)
