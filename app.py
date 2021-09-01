@@ -161,6 +161,11 @@ def lr():
 	#put_text("ΣX = {}".format(sum1))
 	R_Square = np.square(upperSum*(1/len(X)))/(sigX * sigY)
 	put_text("R^2 is {}".format(R_Square))
+	while True:
+		
+		inp = input("enter year :- ",type=FLOAT) 
+		Yhat = B0 + B1 * inp 
+		put_text(" {} (estimated)".format(Yhat)) 
 app = Flask(__name__)
 
 
