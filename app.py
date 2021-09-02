@@ -14,7 +14,6 @@ from pywebio.output import put_html, put_loading
 import csv 
 import re
 import pandas as pd
-import plotly.express as px
 app = Flask(__name__)
 def list_to_dataframe(file_content):
 	with open("data.csv", "w") as csv_file:
