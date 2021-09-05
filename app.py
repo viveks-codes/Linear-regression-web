@@ -14,6 +14,9 @@ from pywebio.output import put_html, put_loading
 import csv 
 import re
 import pandas as pd
+
+
+
 app = Flask(__name__)
 def list_to_dataframe(file_content):
 	with open("data.csv", "w") as csv_file:
@@ -21,6 +24,7 @@ def list_to_dataframe(file_content):
 		for line in file_content:
 			writer.writerow(re.split('\s+',line))
 	return pd.read_csv("data.csv")
+	
 def lr():
 	mode = select("Select Mode",["1.CSV Mode","2.Manual Mode"])
 	if(mode=="1.CSV Mode"):
@@ -30,7 +34,148 @@ def lr():
 		columns = list(df.columns)
 		print(len(df.columns))
 		if(len(df.columns)>2):
-			put_text("Sorry csv file Must have only 2 columns current there are total {} columns in csv ".format(df.columns))
+				X = select("Select independent variables column", columns)
+				Y = select("Select dependent variable column", columns)
+				X = df[str(X)].tolist()
+				Y = df[str(Y)].tolist()
+				sum1 = 0
+				for i in range(len(X)):
+    					sum1 += X[i]
+				put_text("ΣX = {}".format(sum1))
+			
+				sum2 = 0
+				for i in range(len(Y)):
+    					sum2 += Y[i]
+				put_text("ΣY = {}".format(sum2))
+
+				xBar = sum1 / len(X)
+		
+				# ## Lets find ȳ (mean)
+		
+				yBar = sum2 / len(Y)
+				put_text("ȳ = {}".format(yBar))
+		
+				# ## Lets Find x - x̄ For every element
+		
+				xMin_xBar = []
+				for i in range(len(X)):
+				    xMin_xBar.append(X[i]-xBar)  
+
+				# ## Lets add a new column to our data frame called 'X-x̄' 
+
+				xMin_xBar = np.array(xMin_xBar)
+
+
+				# ## Lets Find Y - yBar for every element
+
+				yMin_yBar = []
+				for i in range(len(Y)):
+    					yMin_yBar.append(Y[i]-yBar) 
+			
+				upperSum = 0
+				lower = xMin_xBar * xMin_xBar
+				upper = xMin_xBar * yMin_yBar
+				for i in range(len(upper)):
+					upperSum+=upper[i]
+				put_text("Σ(x - x̅) * (Y- ȳ ) = {}".format(upperSum))
+			
+			
+				# ## Lets Find sum of lower array[ Σ(x - x̅)^2 ]
+		
+				lowerSum = 0
+				for i in range(len(lower)):
+			    		lowerSum+=lower[i]
+				put_text("Σ(x - x̅)^2  = {}".format(lowerSum))
+
+				# ## Lets Find β1(Coefficient)
+		
+				B1 = upperSum / lowerSum
+				put_text("β1 = {}".format(B1))
+		
+				# ## Lets find β0(intercept)
+		
+				B0 = yBar - B1 * xBar
+				put_text("β0 = {}".format(B0))
+		
+				# ## Let's plot our line of best fit
+			
+			
+				# ## and Finnaly we got our forcasted value with mean
+			
+				# In[48]:
+			
+			
+				yPred = B0 + B1 * xBar
+			
+			
+				# In[49]:
+			
+			
+				put_text("y hat is : {} ".format(yPred))
+			
+			
+				# ## let's find R'2
+				# ### it defines how well our line is fitted towards data points
+			
+				# ## let's find sigma X
+			
+				# In[40]:
+			
+			
+				sigX = lowerSum / len(X)
+			
+			
+				# In[41]:
+			
+			
+				put_text("sigmaX is {}".format(sigX))
+			
+			
+				# ## let's find sigma Y
+			
+				# In[42]:
+			
+			
+				yMin_yBar = np.array(yMin_yBar)
+			
+			
+				# In[43]:
+			
+			
+				yMin_yBar_Sqr = yMin_yBar * yMin_yBar 
+			
+			
+				# In[44]:
+			
+			
+				yMin_yBar_Sqr_sum = 0
+				for i in range(len(yMin_yBar_Sqr)):
+			    		yMin_yBar_Sqr_sum+=yMin_yBar_Sqr[i]
+				yMin_yBar_Sqr_sum
+			
+			
+				# In[45]:
+			
+
+				sigY = yMin_yBar_Sqr_sum * 1 / len(Y)
+			
+			
+				# In[46]:
+			
+			
+				put_text("sigmaY is {}".format(sigY))
+				#sum1 = 0
+				#for i in range(len(df['X'])):
+				#	sum1 += X[i]
+				#put_text("ΣX = {}".format(sum1))
+				R_Square = np.square(upperSum*(1/len(X)))/(sigX * sigY)
+				put_text("R^2 is {}".format(R_Square))
+		
+				while True:
+				
+					inp = input("enter X to predict Y :- ",type=FLOAT) 
+					Yhat = B0 + B1 * inp 
+					put_text(" {} (estimated)".format(Yhat)) 
 		else:
 			X = df[str(columns[0])].tolist()
 			Y = df[str(columns[1])].tolist()
